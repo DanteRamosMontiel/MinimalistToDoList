@@ -1,0 +1,348 @@
+/* ===========================
+   IMPORTS & RESET
+=========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Nabla&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===========================
+   TOKENS
+=========================== */
+
+:root {
+    --bg:          #0d0d14;
+    --surface:     #16161f;
+    --surface-2:   #1e1e2a;
+    --border:      rgba(255, 255, 255, 0.07);
+    --border-hover:rgba(124, 106, 247, 0.4);
+
+    --accent:      #7c6af7;
+    --accent-dim:  rgba(124, 106, 247, 0.12);
+    --accent-glow: rgba(124, 106, 247, 0.25);
+
+    --text-primary:  #e8e4d9;
+    --text-secondary:#9390a0;
+    --text-muted:    #5c5870;
+
+    --danger:      #e85454;
+    --danger-dim:  rgba(232, 84, 84, 0.1);
+
+    --success:     #50d9a0;
+
+    --radius-sm:   6px;
+    --radius-md:   10px;
+    --radius-lg:   16px;
+
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.35);
+    --shadow-lift: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* ===========================
+   BASE
+=========================== */
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(ellipse 80% 40% at 50% -10%, rgba(124, 106, 247, 0.12) 0%, transparent 60%);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 20px 80px;
+}
+
+/* ===========================
+   CONTAINER
+=========================== */
+
+.container {
+    width: 100%;
+    max-width: 560px;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+.container > h1 {
+    font-family: "Bitcount Prop Single", system-ui;
+    font-size: 4rem;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    line-height: 1.1;
+    margin-bottom: 6px;
+}
+
+.container > h1::after {
+    content: '.';
+    color: var(--accent);
+}
+
+.container > p:first-of-type {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    margin-bottom: 36px;
+}
+
+/* ===========================
+   INPUT ROW
+=========================== */
+
+.container > input[type="text"] {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    padding: 14px 18px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 10px;
+}
+
+.container > input[type="text"]::placeholder {
+    color: var(--text-muted);
+}
+
+.container > input[type="text"]:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* ===========================
+   ADD BUTTON
+=========================== */
+
+.addbttn {
+    width: 100%;
+    background: var(--accent);
+    border: none;
+    border-radius: var(--radius-md);
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Fira Code', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 13px 18px;
+    transition: opacity 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.addbttn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.addbttn:hover {
+    opacity: 0.9;
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.addbttn:active {
+    transform: scale(0.98);
+    opacity: 1;
+}
+
+/* ===========================
+   ERROR MESSAGE
+=========================== */
+
+.error {
+    font-size: 0.8rem;
+    color: var(--danger);
+    background: var(--danger-dim);
+    border: 1px solid rgba(232, 84, 84, 0.2);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    margin-top: 10px;
+    display: none; /* JS toggleará visibility */
+}
+
+
+/* ===========================
+   TASK CONTAINER
+=========================== */
+
+.taskContainer {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Label sutil encima de las tasks */
+.taskContainer:not(:empty)::before {
+    content: 'Tasks';
+    display: block;
+    font-family: 'Fira Code', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+/* ===========================
+   TASK CARD
+=========================== */
+
+.task {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 16px 16px 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-top-color 0.25s ease, border-right-color 0.25s ease, border-bottom-color 0.25s ease;
+    box-shadow: var(--shadow-card);
+}
+
+.task:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+    border-top-color: var(--border-hover);
+    border-right-color: var(--border-hover);
+    border-bottom-color: var(--border-hover);
+    cursor: pointer;
+}
+
+.task > p {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 400;
+    line-height: 1.4;
+    flex: 1;
+    word-break: break-word;
+}
+
+/* ===========================
+   TASK BUTTONS
+=========================== */
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.buttons button {
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: 'Fira Code', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 7px 14px;
+    transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.buttons button:active {
+    transform: scale(0.96);
+}
+
+.deleteBttn {
+    background: var(--danger-dim);
+    color: var(--danger);
+    border: 1px solid rgba(232, 84, 84, 0.2) !important;
+}
+
+.deleteBttn:hover {
+    background: rgba(232, 84, 84, 0.18);
+    opacity: 1;
+}
+
+.editBttn {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border: 1px solid rgba(124, 106, 247, 0.2) !important;
+}
+
+.editBttn:hover {
+    background: rgba(124, 106, 247, 0.2);
+    opacity: 1;
+}
+
+/* ===========================
+   SCROLLBAR (Webkit)
+=========================== */
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--surface-2);
+    border-radius: 3px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 480px) {
+    body {
+        padding: 40px 16px 60px;
+    }
+
+    .container > h1 {
+        font-size: 2rem;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .buttons button {
+        padding: 7px 10px;
+        font-size: 0.72rem;
+    }
+}
+
+/* ===========================
+   REDUCED MOTION
+=========================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition: none !important;
+    }
+}
