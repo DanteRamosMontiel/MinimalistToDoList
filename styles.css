@@ -2,7 +2,7 @@
    IMPORTS & RESET
 =========================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Nabla&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&display=swap');
 
@@ -18,8 +18,8 @@
 
 :root {
     --bg:          #0d0d14;
-    --surface:     #16161f;
-    --surface-2:   #1e1e2a;
+    --surface:     rgba(18, 16, 30, 0.72);
+    --surface-2:   rgba(26, 24, 40, 0.80);
     --border:      rgba(255, 255, 255, 0.07);
     --border-hover:rgba(124, 106, 247, 0.4);
 
@@ -56,7 +56,11 @@ html {
 body {
     background-color: var(--bg);
     background-image:
-        radial-gradient(ellipse 80% 40% at 50% -10%, rgba(124, 106, 247, 0.12) 0%, transparent 60%);
+        linear-gradient(to bottom, rgba(10, 8, 20, 0.72) 0%, rgba(10, 8, 20, 0.55) 40%, rgba(10, 8, 20, 0.80) 100%),
+        url('media/bg2.png');
+    background-size: cover;
+    background-position: center bottom;
+    background-attachment: fixed;
     color: var(--text-primary);
     font-family: 'Inter', sans-serif;
     font-weight: 400;
@@ -110,6 +114,8 @@ body {
 .container > input[type="text"] {
     width: 100%;
     background: var(--surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     color: var(--text-primary);
@@ -142,7 +148,7 @@ body {
     border-radius: var(--radius-md);
     color: #fff;
     cursor: pointer;
-    font-family: 'Fira Code', sans-serif;
+    font-family: 'Fira Code', monospace;
     font-size: 0.95rem;
     font-weight: 600;
     letter-spacing: 0.02em;
@@ -182,9 +188,8 @@ body {
     border-radius: var(--radius-sm);
     padding: 10px 14px;
     margin-top: 10px;
-    display: none; /* JS toggleará visibility */
+    display: none;
 }
-
 
 /* ===========================
    TASK CONTAINER
@@ -197,11 +202,10 @@ body {
     gap: 10px;
 }
 
-/* Label sutil encima de las tasks */
 .taskContainer:not(:empty)::before {
     content: 'Tasks';
     display: block;
-    font-family: 'Fira Code', sans-serif;
+    font-family: 'Fira Code', monospace;
     font-size: 0.7rem;
     font-weight: 600;
     letter-spacing: 0.12em;
@@ -216,6 +220,8 @@ body {
 
 .task {
     background: var(--surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-top: 1px solid var(--border);
     border-right: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
@@ -262,7 +268,7 @@ body {
     border: none;
     border-radius: var(--radius-sm);
     cursor: pointer;
-    font-family: 'Fira Code', sans-serif;
+    font-family: 'Fira Code', monospace;
     font-size: 0.78rem;
     font-weight: 600;
     letter-spacing: 0.02em;
@@ -323,7 +329,7 @@ body {
     }
 
     .container > h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
 
     .buttons {
