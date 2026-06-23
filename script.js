@@ -5,49 +5,53 @@ const input = document.querySelector("input");
 const error = document.querySelector(".error");
 const taskContainter = document.querySelector(".taskContainer");
 
+function addTask() {
+    //Borro error (aunque no esté)
+    error.style.display = "none";
+
+    //Obtengo titulo de la task
+    const msj = input.value.trim();
+    input.value = "";
+
+    //Creo el div de la nueva task
+    const newTask = document.createElement("div");
+    newTask.className = "task";
+
+    //Creo el titulo y le asigno el value del input
+    const newP = document.createElement("p");
+    newP.textContent = msj;
+    //Agrego el titulo a la task nueva
+    newTask.appendChild(newP);
+
+    //Creo el nuevo cont de botones
+    const newBttnsCont = document.createElement("div");
+    newBttnsCont.className = "buttons";
+
+    //Creo los botones y los agrego a su contenedor
+    const newBttn1 = document.createElement("button");
+    const newBttn2 = document.createElement("button");
+    newBttn1.textContent = "Delete";
+    newBttn1.className = "deleteBttn";
+    newBttn2.textContent = "Edit";
+    newBttn2.className = "editBttn";
+    newBttnsCont.appendChild(newBttn1);
+    newBttnsCont.appendChild(newBttn2);
+
+    //Agrego el cont de botones a la task
+    newTask.appendChild(newBttnsCont);
+
+    //Agrego la nueva task a la lista
+    taskContainter.prepend(newTask);
+
+    //aumento cant tareas
+    cantTareas++;
+}
+
 addbttn.addEventListener("click", () => {
-    if(input.value.trim() === ""){
+    if (input.value.trim() === "") {
         error.style.display = "block";
-    }else{
-        //Borro error (aunque no esté)
-        error.style.display = "none";
-
-        //Obtengo titulo de la task
-        const msj = input.value.trim();
-        input.value = "";
-
-        //Creo el div de la nueva task
-        const newTask = document.createElement("div");
-        newTask.className = "task";
-
-        //Creo el titulo y le asigno el value del input
-        const newP = document.createElement("p");
-        newP.textContent = msj;
-        //Agrego el titulo a la task nueva
-        newTask.appendChild(newP);
-
-        //Creo el nuevo cont de botones
-        const newBttnsCont = document.createElement("div");
-        newBttnsCont.className = "buttons";
-
-        //Creo los botones y los agrego a su contenedor
-        const newBttn1 = document.createElement("button");
-        const newBttn2 = document.createElement("button");
-        newBttn1.textContent = "Delete";
-        newBttn1.className = "deleteBttn";
-        newBttn2.textContent = "Edit";
-        newBttn2.className = "editBttn";
-        newBttnsCont.appendChild(newBttn1);
-        newBttnsCont.appendChild(newBttn2);
-
-        //Agrego el cont de botones a la task
-        newTask.appendChild(newBttnsCont);
-
-        //Agrego la nueva task a la lista
-        taskContainter.prepend(newTask);
-
-        //aumento cant tareas
-        cantTareas++;
+    } else {
+        addTask();
     }
 });
 
@@ -64,3 +68,13 @@ taskContainter.addEventListener("click", (event) => {
     }
 
 });
+
+document.addEventListener("keydown", (event) => {
+    if (event.key == "Enter") {
+        if (input.value.trim() === "") {
+            error.style.display = "block";
+        } else {
+            addTask();
+        }
+    }
+})
