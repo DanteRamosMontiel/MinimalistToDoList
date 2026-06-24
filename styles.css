@@ -111,7 +111,7 @@ body {
    INPUT ROW
 =========================== */
 
-.container > input[type="text"] {
+.input{
     width: 100%;
     background: var(--surface);
     backdrop-filter: blur(12px);
@@ -128,11 +128,11 @@ body {
     margin-bottom: 10px;
 }
 
-.container > input[type="text"]::placeholder {
+.input::placeholder {
     color: var(--text-muted);
 }
 
-.container > input[type="text"]:focus {
+.input:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--accent-glow);
 }
@@ -180,9 +180,9 @@ body {
    ERROR MESSAGE
 =========================== */
 
-.error {
+.error, .error2 {
     font-size: 0.8rem;
-    color: var(--danger);
+    color: var(--danger) !important;
     background: var(--danger-dim);
     border: 1px solid rgba(232, 84, 84, 0.2);
     border-radius: var(--radius-sm);
@@ -300,6 +300,58 @@ body {
 .editBttn:hover {
     background: rgba(124, 106, 247, 0.2);
     opacity: 1;
+}
+
+.cancelBttn {
+    background: var(--danger-dim);
+    color: var(--danger);
+    border: 1px solid rgba(232, 84, 84, 0.2) !important;
+}
+
+.cancelBttn:hover {
+    background: rgba(232, 84, 84, 0.18);
+    opacity: 1;
+}
+
+/* ===========================
+   EDIT CARD
+=========================== */
+
+.editcard {
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 16px 16px 16px 20px;
+    display: flex;
+    flex-direction: column          ;
+    justify-content: space-between;
+    gap: 16px;
+    transition: all 0.25 ease-in-out;
+    box-shadow: var(--shadow-card);
+    animation: aparecer 2s ease;
+}
+
+.editcard:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+    border-top-color: var(--border-hover);
+    border-right-color: var(--border-hover);
+    border-bottom-color: var(--border-hover);
+    cursor: pointer;
+}
+
+.editcard > p {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 400;
+    line-height: 1.4;
+    flex: 1;
+    word-break: break-word;
 }
 
 /* ===========================

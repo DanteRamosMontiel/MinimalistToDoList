@@ -3,7 +3,9 @@ let cantTareas = 0;
 const addbttn = document.querySelector(".addbttn");
 const input = document.querySelector("input");
 const error = document.querySelector(".error");
+const edit = document.querySelector(".editBttn");
 const taskContainter = document.querySelector(".taskContainer");
+//const editbttn = document.querySelector(".editbttn");
 
 function addTask() {
     //Borro error (aunque no esté)
@@ -47,6 +49,52 @@ function addTask() {
     cantTareas++;
 }
 
+function addEditCard(task){
+    //Creamos la editcard
+    const newEditCard = document.createElement("div");
+    newEditCard.className = "editcard";
+
+    //creamos el titulo
+    const newTitle = document.createElement("p");
+    newTitle.textContent = "Edit task title";
+
+    //creamos el input
+    const newInput = document.createElement("input");
+    newInput.className = "input";
+    newInput.placeholder = "Write the new title"
+
+    //Creamos el div de los botones
+    const newBttnDiv = document.createElement("div");
+    newBttnDiv.className = "buttons";
+
+    //Creamos los dos botones y los insertamos dentro de su div
+    const newBttn1 = document.createElement("button");
+    const newBttn2 = document.createElement("button");
+    newBttn1.textContent = "Submit";
+    newBttn1.className = "addbttn submitBttn";
+    newBttn2.textContent = "Cancel";
+    newBttn2.className = "cancelBttn";
+    newBttnDiv.appendChild(newBttn1);
+    newBttnDiv.appendChild(newBttn2);
+
+    //creamos el bloque de error
+    const newError = document.createElement("p");
+    newError.textContent = "Error: you must write a task title first";
+    newError.className = "error2";
+
+    //metemos todo dentro del editcard
+    newEditCard.appendChild(newTitle);
+    newEditCard.appendChild(newInput);
+    newEditCard.appendChild(newBttnDiv);
+    newEditCard.appendChild(newError);
+
+    //Ahora agregamos la nueva editcard debajo de la tarea correspondiente
+    task.insertAdjacentElement("afterend", newEditCard);
+
+    //seteamos la task como que ya tiene una edit card asi no se pueden abrir ams de una
+    task.classList.add("hasEditCard");
+}
+
 addbttn.addEventListener("click", () => {
     if (input.value.trim() === "") {
         error.style.display = "block";
@@ -56,17 +104,39 @@ addbttn.addEventListener("click", () => {
 });
 
 taskContainter.addEventListener("click", (event) => {
-
-    // ¿Se hizo click en un botón Delete?
+    
     if (event.target.classList.contains("deleteBttn")) {
-
-        // Buscar la tarea que contiene ese botón
         const task = event.target.closest(".task");
-
-        // Eliminarla
+        if(task.classList.contains("hasEditCard")){
+            const editCard = task.nextElementSibling;
+            editCard.remove();
+        }
         task.remove();
+    } else if (event.target.classList.contains("cancelBttn")) {
+        const edit = event.target.closest(".editcard");
+        const task = edit.previousElementSibling;
+        edit.remove();
+        task.classList.remove("hasEditCard");
+    } else if(event.target.classList.contains("editBttn")){
+        const task = event.target.closest(".task");
+        if(!task.classList.contains("hasEditCard")){
+            addEditCard(task);
+        }
+    }else if(event.target.classList.contains("submitBttn")){
+        const edit = event.target.closest(".editcard");
+        const error = edit.querySelector(".error2");
+        const msg = edit.querySelector(".input").value.trim();
+        if(msg === ""){
+            error.style.display = "block";
+        }else{
+            error.style.display = "none";
+            const task = edit.previousElementSibling;
+            edit.remove();
+            task.querySelector("p").textContent = msg;
+            task.classList.remove("hasEditCard");
+        }
+        
     }
-
 });
 
 document.addEventListener("keydown", (event) => {
