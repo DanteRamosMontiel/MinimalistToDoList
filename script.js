@@ -5,6 +5,7 @@ const input = document.querySelector("input");
 const error = document.querySelector(".error");
 const edit = document.querySelector(".editBttn");
 const taskContainter = document.querySelector(".taskContainer");
+const overlay = document.querySelector(".overlay");
 //const editbttn = document.querySelector(".editbttn");
 
 function addTask() {
@@ -94,6 +95,10 @@ function addEditCard(task){
     //seteamos la task como que ya tiene una edit card asi no se pueden abrir ams de una
     task.classList.add("hasEditCard");
 }
+
+window.addEventListener("load", () => {
+    overlay.style.display = "none";
+});
 
 addbttn.addEventListener("click", () => {
     if (input.value.trim() === "") {
